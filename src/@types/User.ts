@@ -6,3 +6,9 @@ export type User = {
   avatar: null | string;
   created_at: Date;
 };
+
+export type UserCreateProps = {
+  name: string;
+  email: string;
+  password: string;
+};
