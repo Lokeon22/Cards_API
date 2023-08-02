@@ -1,10 +1,6 @@
-import { connection as knex } from "../database/knex";
 import { Request, Response } from "express";
 import { UserRepository } from "../repositories/UserRepository";
 import { UserCreateServices } from "../services/UserCreateServices";
-
-import { AppError } from "../utils/AppError";
-import { User } from "../@types/User";
 
 class UserController {
   async create(req: Request, res: Response) {
@@ -19,19 +15,13 @@ class UserController {
   }
 
   async update(req: Request, res: Response) {
-    const { id } = req.params;
+    const id = req.user.id;
     const { name, email }: { name: string; email: string } = req.body;
 
-    const user: User = await knex("users").where({ id }).first();
+    const userRepository = new UserRepository();
+    const userCreateService = new UserCreateServices(userRepository);
 
-    if (!user) throw new AppError("Usuário não encontrado");
-
-    knex("users")
-      .where({ id })
-      .update({
-        name: name ?? user.name,
-        email: email ?? user.email,
-      });
+    await userCreateService.execute_update({ id, name, email });
 
     return res.json({ message: "Perfil atualizado" });
   }

@@ -29,6 +29,16 @@ class UserCreateServices {
 
     return userCreated;
   }
+
+  async execute_update({ id, name, email }: { id: number; name: string; email: string }) {
+    const user = await this.userRepository.verifyUserExists(id);
+
+    if (!user) throw new AppError("Usuário não encontrado");
+
+    const update = await this.userRepository.update({ id, name, email });
+
+    return update;
+  }
 }
 
 export { UserCreateServices };
