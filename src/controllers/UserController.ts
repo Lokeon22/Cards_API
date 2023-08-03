@@ -14,6 +14,14 @@ class UserController {
     return res.json({ message: "Conta criada" });
   }
 
+  async show(req: Request, res: Response) {
+    const id = req.user.id;
+
+    const user = await new UserRepository().verifyUserExists(id);
+
+    return res.json(user);
+  }
+
   async update(req: Request, res: Response) {
     const id = req.user.id;
     const { name, email }: { name: string; email: string } = req.body;
