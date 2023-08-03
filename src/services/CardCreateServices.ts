@@ -30,6 +30,18 @@ class CardCreateServices {
 
     return update;
   }
+
+  async execute_delete({ id, user_id }: { id: number; user_id: number }) {
+    const [get_card] = await this.cardRepository.getCard(user_id);
+
+    if (!get_card) throw new AppError("Nenhum card encontrado");
+
+    if (get_card.user_id !== user_id) throw new AppError("Usuário sem permissão");
+
+    const del_card = await this.cardRepository.delete(id);
+
+    return { id: del_card };
+  }
 }
 
 export { CardCreateServices };

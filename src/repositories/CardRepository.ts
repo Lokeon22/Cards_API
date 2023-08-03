@@ -39,6 +39,12 @@ class CardRepository {
 
     return { id: update_card };
   }
+
+  async delete(id: number) {
+    const del_card = await knex("cards").where({ id }).first().delete();
+
+    return { id: del_card };
+  }
 }
 
 export { CardRepository };

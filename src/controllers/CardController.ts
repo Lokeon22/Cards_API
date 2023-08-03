@@ -38,6 +38,18 @@ class CardController {
 
     return res.json({ message: "Card Atualizado" });
   }
+
+  async delete(req: Request, res: Response) {
+    const { id } = req.query;
+    const user_id = req.user.id;
+
+    const cardRepository = new CardRepository();
+    const cardCreateServices = new CardCreateServices(cardRepository);
+
+    await cardCreateServices.execute_delete({ id: Number(id), user_id });
+
+    return res.json({ message: "Card deletado com sucesso" });
+  }
 }
 
 export { CardController };
