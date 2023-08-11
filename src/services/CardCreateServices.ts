@@ -19,8 +19,16 @@ class CardCreateServices {
     return { card_id };
   }
 
-  async execute_allcards(user_id: number) {
-    const cards = await this.cardRepository.getCard(user_id);
+  async execute_allcards({
+    user_id,
+    page,
+    limit,
+  }: {
+    user_id: number;
+    page?: number;
+    limit?: number;
+  }) {
+    const cards = await this.cardRepository.getCard({ user_id, page, limit });
 
     return { cards };
   }
@@ -32,7 +40,7 @@ class CardCreateServices {
   }
 
   async execute_delete({ id, user_id }: { id: number; user_id: number }) {
-    const [get_card] = await this.cardRepository.getCard(user_id);
+    const [get_card] = await this.cardRepository.getCard({ user_id });
 
     if (!get_card) throw new AppError("Nenhum card encontrado");
 

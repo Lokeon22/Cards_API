@@ -21,14 +21,21 @@ class CardRepository {
     return { card_id: create_card };
   }
 
-  async getCard(user_id: number) {
-    const cards: Cards[] = await knex("cards").where({ user_id });
+  async getCard({ user_id, page, limit }: { user_id: number; page?: number; limit?: number }) {
+    //pagination
+    if (!page) page = 1;
+    if (!limit) limit = 8;
+
+    const cards: Cards[] = await knex("cards")
+      .where({ user_id })
+      .limit(limit)
+      .offset((page - 1) * limit);
 
     return cards;
   }
 
   async update({ id, user_id, portuguese, english }: CardUpdate) {
-    const [select_card] = (await this.getCard(user_id)).filter((card) => card.id === id);
+    const [select_card] = (await this.getCard({ user_id })).filter((card) => card.id === id);
 
     const update_card = await knex("cards")
       .where({ id })

@@ -1,6 +1,6 @@
-import { UserRepositoryInMemory } from "../repositories/UserRepositoryInMemory";
-import { AppError } from "../utils/AppError";
-import { UserCreateServices } from "./UserCreateServices";
+import { UserRepositoryInMemory } from "../../repositories/repo_memory/UserRepositoryInMemory";
+import { AppError } from "../../utils/AppError";
+import { UserCreateServices } from "../UserCreateServices";
 
 describe("Create user", () => {
   let userRepositoryInMemory: UserRepositoryInMemory;

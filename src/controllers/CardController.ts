@@ -16,12 +16,17 @@ class CardController {
   }
 
   async index(req: Request, res: Response) {
+    const { page, limit } = req.query;
     const user_id = req.user.id;
 
     const cardRepository = new CardRepository();
     const cardCreateServices = new CardCreateServices(cardRepository);
 
-    const { cards } = await cardCreateServices.execute_allcards(user_id);
+    const { cards } = await cardCreateServices.execute_allcards({
+      user_id,
+      page: Number(page),
+      limit: Number(limit),
+    });
 
     return res.json(cards);
   }

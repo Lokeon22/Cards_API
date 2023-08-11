@@ -1,5 +1,5 @@
-import { Cards } from "../@types/Cards";
-import { CardUpdate } from "./CardRepository";
+import { Cards } from "../../@types/Cards";
+import { CardUpdate } from "../CardRepository";
 
 class CardRepositoryInMemory {
   cards: Cards[] = [];

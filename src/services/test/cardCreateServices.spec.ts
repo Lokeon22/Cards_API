@@ -1,6 +1,6 @@
-import { CardRepositoryInMemory } from "../repositories/CardRepositoryInMemory";
-import { CardCreateServices } from "./CardCreateServices";
-import { AppError } from "../utils/AppError";
+import { CardRepositoryInMemory } from "../../repositories/repo_memory/CardRepositoryInMemory";
+import { CardCreateServices } from "../CardCreateServices";
+import { AppError } from "../../utils/AppError";
 
 describe("Create card", () => {
   let cardRepositoryInMemory: CardRepositoryInMemory;
