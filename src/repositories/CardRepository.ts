@@ -47,8 +47,8 @@ class CardRepository {
     return { id: update_card };
   }
 
-  async delete(id: number) {
-    const del_card = await knex("cards").where({ id }).first().delete();
+  async delete({ id, user_id }: { id: number[]; user_id: number }) {
+    const del_card: Cards[] = await knex("cards").where({ user_id }).whereIn("id", id).del();
 
     return { id: del_card };
   }

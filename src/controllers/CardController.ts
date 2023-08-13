@@ -48,10 +48,12 @@ class CardController {
     const { id } = req.query;
     const user_id = req.user.id;
 
+    const convert_array_id = JSON.parse(id as string);
+
     const cardRepository = new CardRepository();
     const cardCreateServices = new CardCreateServices(cardRepository);
 
-    await cardCreateServices.execute_delete({ id: Number(id), user_id });
+    await cardCreateServices.execute_delete({ id: convert_array_id, user_id });
 
     return res.json({ message: "Card deletado com sucesso" });
   }

@@ -23,7 +23,9 @@ class CardRepositoryInMemory {
     return { card_id: create_card.user_id };
   }
 
-  async getCard(user_id: number) {
+  async getCard({ user_id, page, limit }: { user_id: number; page?: number; limit?: number }) {
+    if (!page) page = 1;
+    if (!limit) limit = 8;
     const cards = this.cards.filter((card) => card.user_id === user_id);
 
     return cards;
@@ -43,11 +45,12 @@ class CardRepositoryInMemory {
     return { id: update_card };
   }
 
-  async delete(id: number) {
-    const del_card = this.cards.filter((card) => card.id === id).pop() as Cards;
-    let randomID = Math.floor(Math.random() * 100);
+  async delete({ id, user_id }: { id: number[]; user_id: number }) {
+    const [del_card] = id.map((n) => {
+      return this.cards.filter((card) => card.id === n);
+    });
 
-    return { id: randomID };
+    return { id: del_card };
   }
 }
 

@@ -50,11 +50,18 @@ describe("Create card", () => {
       english: "test",
     };
 
+    const cardData2 = {
+      id: 2,
+      user_id: 1,
+      portuguese: "teste2",
+      english: "test2",
+    };
+
+    let user_request_toDelete = { id: [1, 2], user_id: 1 };
+
     await cardCreateServices.execute(cardData);
-    const delete_card = await cardCreateServices.execute_delete({
-      id: cardData.id,
-      user_id: cardData.user_id,
-    });
+    await cardCreateServices.execute(cardData2);
+    const delete_card = await cardCreateServices.execute_delete(user_request_toDelete);
     expect(delete_card).toHaveProperty("id");
   });
 });
