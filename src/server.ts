@@ -35,24 +35,27 @@ io.on("connection", (socket) => {
   });
 });
 
-/*
-let users: any[] = [];
+let activeUsers: any[] = [];
 
 io.on("connection", (socket) => {
-  socket.on("newUser", (data) => {
-    users.push(data);
-    socket.emit("user_response", users);
+  //add new user
+  socket.on("new-user-add", (newUserId) => {
+    if (!activeUsers.some((user) => user.userId === newUserId)) {
+      activeUsers.push({
+        userId: newUserId,
+        socketId: socket.id,
+      });
+    }
+    console.log("Connected Users", activeUsers);
+    socket.emit("get-users", activeUsers);
   });
 
   socket.on("disconnect", () => {
-    console.log("🔥: A user disconnected");
-    //Updates the list of users when a user disconnects from the server
-    users = users.filter((user) => user.socketID !== socket.id);
-    //Sends the list of users to the client
-    socket.emit("user_response", users);
-    socket.disconnect();
+    activeUsers = activeUsers.filter((user) => user.socketId !== socket.id);
+    console.log("User disconnected", activeUsers);
+    socket.emit("get-users", activeUsers);
   });
-}); */
+});
 
 const PORT = 8080;
 
