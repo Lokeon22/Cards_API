@@ -24,17 +24,6 @@ const io = new Server(server, {
   },
 });
 
-io.on("connection", (socket) => {
-  socket.on("join_room", (data) => {
-    socket.join(data);
-  });
-
-  socket.on("send_message", (data) => {
-    socket.emit("receive_message", data);
-    socket.to(data.room).emit("receive_message", data);
-  });
-});
-
 let activeUsers: any[] = [];
 
 io.on("connection", (socket) => {
@@ -48,6 +37,16 @@ io.on("connection", (socket) => {
     }
     console.log("Connected Users", activeUsers);
     socket.emit("get-users", activeUsers);
+  });
+
+  //send message
+  socket.on("send-message", (data) => {
+    console.log(data);
+    const { receiveUser } = data;
+    const user: any = activeUsers.filter((user) => user.userId === receiveUser);
+    if (user) {
+      socket.to(user.socketId).emit("receive-message", data);
+    }
   });
 
   socket.on("disconnect", () => {
