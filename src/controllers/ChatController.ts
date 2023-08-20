@@ -30,13 +30,10 @@ class ChatController {
   }
 
   async show(req: Request, res: Response) {
-    const user_id = req.user.id; // fisrt id
-    const receive_id = req.params;
+    //const user_id = req.user.id; // fisrt id
+    const { chat_id } = req.params;
 
-    const specific_chat = await knex("chat")
-      .where({ sender_id: user_id })
-      .where(receive_id)
-      .first();
+    const specific_chat = await knex("chat").where({ id: chat_id }).first();
 
     if (!specific_chat) return res.json([]);
 

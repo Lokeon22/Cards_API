@@ -7,6 +7,6 @@ const chatController = new ChatController();
 
 chatRoutes.post("/chat", ensureAuth, chatController.create);
 chatRoutes.get("/chat/user", ensureAuth, chatController.index);
-chatRoutes.get("/chat/find/:receive_id", ensureAuth, chatController.show);
+chatRoutes.get("/chat/find/:chat_id", chatController.show);
 
 export { chatRoutes };

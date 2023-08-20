@@ -7,7 +7,14 @@ class MessageController {
     const sender_id = req.user.id;
     const { chatId, message } = req.body;
 
-    const [message_id] = await knex("messages").insert({ chatId, sender_id, message });
+    const receive_chat = await knex("chat").where({ id: chatId }).first();
+
+    const [message_id] = await knex("messages").insert({
+      chatId,
+      sender_id,
+      receive_id: receive_chat.receive_id,
+      message,
+    });
 
     return res.json({ message_id });
   }
