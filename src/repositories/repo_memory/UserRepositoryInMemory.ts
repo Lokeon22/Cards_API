@@ -15,6 +15,31 @@ class UserRepositoryInMemory {
     return user;
   }
 
+  async allUsers() {
+    const user1 = {
+      id: Math.floor(Math.random() * 100),
+      name: "User 1",
+      email: "user1@gmail.com",
+      password: "123",
+      avatar: null,
+      created_at: new Date(),
+    };
+
+    const user2 = {
+      id: Math.floor(Math.random() * 100),
+      name: "User 2",
+      email: "user2@gmail.com",
+      password: "123",
+      avatar: null,
+      created_at: new Date(),
+    };
+
+    this.users.push(user1);
+    this.users.push(user2);
+
+    return this.users;
+  }
+
   async create({ name, email, password }: User) {
     const user: User = {
       id: Math.floor(Math.random() * 100),

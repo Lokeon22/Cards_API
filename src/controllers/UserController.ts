@@ -32,6 +32,12 @@ class UserController {
     return res.json(user);
   }
 
+  async allusers(req: Request, res: Response) {
+    const users = await new UserRepository().allUsers();
+
+    return res.json(users);
+  }
+
   async update(req: Request, res: Response) {
     const id = req.user.id;
     const { name, email }: { name: string; email: string } = req.body;

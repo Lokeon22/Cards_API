@@ -14,6 +14,12 @@ class UserRepository {
     return user;
   }
 
+  async allUsers() {
+    const users: User[] = await knex("users");
+
+    return users;
+  }
+
   async create({ name, email, password }: UserCreateProps) {
     const [user_id] = await knex("users").insert({ name, email, password });
 

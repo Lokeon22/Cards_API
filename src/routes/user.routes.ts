@@ -9,5 +9,6 @@ userRoutes.post("/user/create", userController.create);
 userRoutes.put("/user/update/:id", ensureAuth, userController.update);
 userRoutes.get("/user/details", ensureAuth, userController.show);
 userRoutes.get("/user/:id", userController.index);
+userRoutes.get("/allusers", userController.allusers);
 
 export { userRoutes };
