@@ -1,30 +1,28 @@
 import { Request, Response } from "express";
-import { connection as knex } from "../database/knex";
-import { AppError } from "../utils/AppError";
+
+import { ChatRepository } from "../repositories/ChatRepository";
+import { ChatServices } from "../services/ChatServices";
 
 class ChatController {
   async create(req: Request, res: Response) {
     const sender_id = req.user.id;
     const { receive_id } = req.body;
 
-    try {
-      const [chat_id] = await knex("chat").insert({ sender_id, receive_id });
+    const chatRepository = new ChatRepository();
+    const chatServices = new ChatServices(chatRepository);
 
-      return res.json({ chat_id });
-    } catch (error) {
-      throw new AppError("Algo deu errado");
-    }
+    const { chat_id } = await chatServices.execute({ sender_id, receive_id });
+
+    return res.json({ chat_id });
   }
 
   async index(req: Request, res: Response) {
     const user_id = req.user.id;
 
-    const all_chats = await knex("chat")
-      .where({ sender_id: user_id })
-      .orWhere({ receive_id: user_id });
-    //se der problema, remover esse orWhere
+    const chatRepository = new ChatRepository();
+    const chatServices = new ChatServices(chatRepository);
 
-    if (!all_chats) return res.json([]);
+    const all_chats = await chatServices.execute_allchats({ user_id });
 
     return res.json(all_chats);
   }
@@ -33,9 +31,10 @@ class ChatController {
     //const user_id = req.user.id; // fisrt id
     const { chat_id } = req.params;
 
-    const specific_chat = await knex("chat").where({ id: chat_id }).first();
+    const chatRepository = new ChatRepository();
+    const chatServices = new ChatServices(chatRepository);
 
-    if (!specific_chat) return res.json([]);
+    const specific_chat = await chatServices.execute_specific_chat({ chat_id: Number(chat_id) });
 
     return res.json(specific_chat);
   }
