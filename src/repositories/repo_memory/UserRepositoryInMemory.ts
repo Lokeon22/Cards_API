@@ -22,6 +22,7 @@ class UserRepositoryInMemory {
       email: "user1@gmail.com",
       password: "123",
       avatar: null,
+      background: null,
       created_at: new Date(),
     };
 
@@ -31,6 +32,7 @@ class UserRepositoryInMemory {
       email: "user2@gmail.com",
       password: "123",
       avatar: null,
+      background: null,
       created_at: new Date(),
     };
 
@@ -47,6 +49,7 @@ class UserRepositoryInMemory {
       email,
       password,
       avatar: null,
+      background: null,
       created_at: new Date(),
     };
 

@@ -4,6 +4,7 @@ export type User = {
   email: string;
   password: string;
   avatar: null | string;
+  background: null | string;
   created_at: Date;
 };
 

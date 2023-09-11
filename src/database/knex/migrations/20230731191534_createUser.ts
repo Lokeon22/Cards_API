@@ -7,6 +7,7 @@ export async function up(knex: Knex): Promise<void> {
     table.text("email");
     table.text("password");
     table.text("avatar").defaultTo(null);
+    table.text("background").defaultTo(null);
     table.timestamp("created_at").defaultTo(knex.fn.now());
   });
 }
