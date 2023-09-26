@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.routes = void 0;
+const express_1 = require("express");
+const user_routes_1 = require("./user.routes");
+const sessions_routes_1 = require("./sessions.routes");
+const cards_routes_1 = require("./cards.routes");
+const chat_routes_1 = require("./chat.routes");
+const message_routes_1 = require("./message.routes");
+const routes = (0, express_1.Router)();
+exports.routes = routes;
+routes.use("/", user_routes_1.userRoutes);
+routes.use("/", sessions_routes_1.sessionRoutes);
+routes.use("/", cards_routes_1.cardsRoutes);
+routes.use("/", chat_routes_1.chatRoutes);
+routes.use("/", message_routes_1.messageRoutes);

@@ -1,7 +1,7 @@
 import { connection as knex } from "../database/knex";
 import { MessageProps } from "../@types/Message";
 
-interface MessageResults extends MessageProps {
+export interface MessageResults extends MessageProps {
   created_at: Date;
 }
 

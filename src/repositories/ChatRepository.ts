@@ -1,6 +1,6 @@
 import { connection as knex } from "../database/knex";
 
-interface ChatProps {
+export interface ChatProps {
   id: number;
   sender_id: number;
   receive_id: number;

@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.cardsRoutes = void 0;
+const express_1 = require("express");
+const CardController_1 = require("../controllers/CardController");
+const ensureAuth_1 = require("../middleware/ensureAuth");
+const cardsRoutes = (0, express_1.Router)();
+exports.cardsRoutes = cardsRoutes;
+const cardController = new CardController_1.CardController();
+cardsRoutes.post("/card/create", ensureAuth_1.ensureAuth, cardController.create);
+cardsRoutes.get("/allcards", ensureAuth_1.ensureAuth, cardController.index);
+cardsRoutes.put("/card/update", ensureAuth_1.ensureAuth, cardController.update);
+cardsRoutes.delete("/card/remove", ensureAuth_1.ensureAuth, cardController.delete);
