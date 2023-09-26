@@ -6,7 +6,7 @@
   "scripts": {
     "start": "pm2-runtime start ecosystem.config.js --env production",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/server.ts",
-    "migrate": "knex migrate:latest",
+    "migrate": "npx knex migrate:latest --knexfile build/knexfile.js",
     "test": "jest",
     "build": "tsc"
   },
