@@ -17,6 +17,8 @@ const corsOptions = {
   origin: "https://lk-cards.vercel.app",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   optionsSuccessStatus: 204,
+  allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
