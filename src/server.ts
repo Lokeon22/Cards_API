@@ -13,32 +13,13 @@ const app = express();
 
 app.use(express.json());
 
-app.use(
-  cors({
-    origin: [
-      "https://lk-cards.vercel.app",
-      "http://lk-cards.vercel.app",
-      "http://lkcards-api.onrender.com",
-      "https://lkcards-api.onrender.com",
-    ],
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: "https://lk-cards.vercel.app",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 204,
+};
 
-// try cors header
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  if (req.method == "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-    return res.status(200).json({});
-  }
-
-  next();
-});
+app.use(cors(corsOptions));
 
 app.use("/files", express.static(UPLOAD_FOLDER));
 
