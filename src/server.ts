@@ -57,8 +57,11 @@ io.on("connection", (socket) => {
   });
 });
 
-app.prependListener("request", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "https://lk-cards.vercel.app");
+
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
 const PORT = 8080;
