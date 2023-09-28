@@ -22,7 +22,7 @@ app.use(routes);
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://lk-cards.vercel.app", //url to connect chat
+    origin: "*", //url to connect chat
     methods: ["GET", "POST"],
   },
 });
